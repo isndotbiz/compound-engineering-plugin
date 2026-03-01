@@ -1042,6 +1042,93 @@ Task({
 
 ---
 
+## Orchestrator Integration (Cheap Workers)
+
+When an orchestrator MCP server is available (`mcp__orchestrator__*` tools), use it as a **cost-effective alternative** to spawning Claude subagents for tasks that don't require tool access. See [orchestrator-integration.md](./references/orchestrator-integration.md) for full reference.
+
+### Detection
+
+Before choosing a dispatch strategy, check if the orchestrator is available:
+
+```javascript
+// Try health check — if it returns data, orchestrator workers are available
+mcp__orchestrator__orchestrator_health()
+```
+
+### Orchestrator-Aware Pattern: Parallel Review
+
+Instead of spawning 3 Claude review agents (~$5):
+
+```javascript
+// OLD: 3 expensive Claude subagents
+Task({ subagent_type: "security-sentinel", ... })
+Task({ subagent_type: "performance-oracle", ... })
+Task({ subagent_type: "code-simplicity-reviewer", ... })
+```
+
+Use orchestrator swarm (~$0):
+
+```javascript
+// NEW: 1 orchestrator swarm call, 14 workers in parallel
+TaskCreate({ subject: "Review code", description: "Multi-perspective review", activeForm: "Reviewing..." })
+TaskUpdate({ taskId: "1", status: "in_progress" })
+
+mcp__orchestrator__orchestrator_swarm({
+  prompt: "Review this code for security vulnerabilities, performance issues, and unnecessary complexity:\n\n<paste code>"
+})
+
+// Synthesize the winner + candidate results, apply fixes with Claude
+TaskUpdate({ taskId: "1", status: "completed" })
+```
+
+### Orchestrator-Aware Pattern: Research Pipeline
+
+Instead of spawning a research agent + implementation agent:
+
+```javascript
+// Step 1: Cheap research via orchestrator
+TaskCreate({ subject: "Research caching", activeForm: "Researching..." })
+TaskCreate({ subject: "Implement cache", activeForm: "Implementing..." })
+TaskUpdate({ taskId: "2", addBlockedBy: ["1"] })
+
+TaskUpdate({ taskId: "1", status: "in_progress" })
+const research = mcp__orchestrator__orchestrator_dispatch({
+  prompt: "Research best practices for API caching in 2026",
+  task_type: "research",
+  include_rag: true
+})
+TaskUpdate({ taskId: "1", status: "completed" })
+
+// Step 2: Claude implements (needs tool access)
+TaskUpdate({ taskId: "2", status: "in_progress" })
+// Claude uses Edit/Write/Bash with research context
+TaskUpdate({ taskId: "2", status: "completed" })
+```
+
+### Decision Matrix: Orchestrator vs Claude Subagents
+
+| Task needs... | Use |
+|---------------|-----|
+| Tool access (Edit, Write, Bash, Git) | Claude subagent |
+| Conversation context | Claude subagent |
+| Iterative tool feedback | Claude subagent |
+| Research / fact-finding | **Orchestrator dispatch** |
+| Code review / audit | **Orchestrator swarm** |
+| Brainstorming / perspectives | **Orchestrator swarm** |
+| Summarization / generation | **Orchestrator dispatch** |
+| Validation / fact-checking | **Orchestrator dispatch** |
+
+### Cost Comparison
+
+| Operation | Claude subagents | Orchestrator | Savings |
+|-----------|-----------------|-------------|---------|
+| 3-perspective code review | ~$3-5 | ~$0 | 99% |
+| Research + implement | ~$2-3 | ~$0.01 | 99% |
+| Brainstorm (5 ideas) | ~$1-2 | ~$0 | 99% |
+| Full review cycle | ~$8-15 | ~$0.05 | 99% |
+
+---
+
 ## Environment Variables
 
 Spawned teammates automatically receive these:
