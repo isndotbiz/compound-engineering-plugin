@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Release numbering now follows the repository `v*` tag line. Starting at `v2.34.0`, the root CLI package and this changelog stay on that shared version stream. Older entries below retain the previous `0.x` CLI numbering.
 
+# [2.37.0](https://github.com/EveryInc/compound-engineering-plugin/compare/v2.36.5...v2.37.0) (2026-03-15)
+
+
+### Features
+
+* sync agent-browser skill with upstream vercel-labs/agent-browser ([24860ec](https://github.com/EveryInc/compound-engineering-plugin/commit/24860ec3f1f1e7bfdee0f4408636ada1a3bb8f75))
+
 ## [2.36.5](https://github.com/EveryInc/compound-engineering-plugin/compare/v2.36.4...v2.36.5) (2026-03-15)
 
 
