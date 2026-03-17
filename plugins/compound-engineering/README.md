@@ -7,7 +7,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Component | Count |
 |-----------|-------|
 | Agents | 29 |
-| Skills | 42 |
+| Skills | 44 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -90,7 +90,7 @@ Core workflow commands use `ce:` prefix to unambiguously identify them as compou
 |---------|-------------|
 | `/lfg` | Full autonomous engineering workflow |
 | `/slfg` | Full autonomous workflow with swarm mode for parallel execution |
-| `/deepen-plan` | Enhance plans with parallel research agents for each section |
+| `/deepen-plan` | Stress-test plans and deepen weak sections with targeted research |
 | `/changelog` | Create engaging changelogs for recent merges |
 | `/create-agent-skill` | Create or edit Claude Code skills |
 | `/generate_command` | Generate new slash commands |
@@ -155,6 +155,17 @@ Core workflow commands use `ce:` prefix to unambiguously identify them as compou
 | Skill | Description |
 |-------|-------------|
 | `agent-browser` | CLI-based browser automation using Vercel's agent-browser |
+
+### Beta Skills
+
+Experimental versions of core workflow skills. These are being tested before replacing their stable counterparts. They work standalone but are not yet wired into the automated `lfg`/`slfg` orchestration.
+
+| Skill | Description | Replaces |
+|-------|-------------|----------|
+| `ce:plan-beta` | Decision-first planning focused on boundaries, sequencing, and verification | `ce:plan` |
+| `deepen-plan-beta` | Selective stress-test that targets weak sections with research | `deepen-plan` |
+
+To test: invoke `/ce:plan-beta` or `/deepen-plan-beta` directly. Plans produced by the beta skills are compatible with `/ce:work`.
 
 ### Image Generation
 
