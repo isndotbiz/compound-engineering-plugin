@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.61.0](https://github.com/isndotbiz/compound-engineering-plugin/compare/cli-v2.60.0...cli-v2.61.0) (2026-04-03)
+
+
+### Features
+
+* **ce-review:** add headless mode for programmatic callers ([#430](https://github.com/isndotbiz/compound-engineering-plugin/issues/430)) ([3706a97](https://github.com/isndotbiz/compound-engineering-plugin/commit/3706a9764b6e73b7a155771956646ddef73f04a5))
+* **converters:** centralize model field normalization across targets ([#442](https://github.com/isndotbiz/compound-engineering-plugin/issues/442)) ([f93d10c](https://github.com/isndotbiz/compound-engineering-plugin/commit/f93d10cf60a61b13c7765198d69f7c4cfa268ed6))
+* **model:** add MiniMax provider prefix for cross-platform model normalization ([#463](https://github.com/isndotbiz/compound-engineering-plugin/issues/463)) ([e372b43](https://github.com/isndotbiz/compound-engineering-plugin/commit/e372b43d30378321ac815fe1ae101c1d5634d321))
+* **review:** make review mandatory across pipeline skills ([#433](https://github.com/isndotbiz/compound-engineering-plugin/issues/433)) ([9caaf07](https://github.com/isndotbiz/compound-engineering-plugin/commit/9caaf071d9b74fd938567542167768f6cdb7a56f))
+* **skill-design:** document skill file isolation and platform variable constraints ([#469](https://github.com/isndotbiz/compound-engineering-plugin/issues/469)) ([0294652](https://github.com/isndotbiz/compound-engineering-plugin/commit/0294652395cb62d5569f73ebfea543cfe8b514d6))
+* **testing:** close the testing gap in ce:work, ce:plan, and testing-reviewer ([#438](https://github.com/isndotbiz/compound-engineering-plugin/issues/438)) ([35678b8](https://github.com/isndotbiz/compound-engineering-plugin/commit/35678b8add6a603cf9939564bcd2df6b83338c52))
+
+
+### Bug Fixes
+
+* **review:** harden ce-review base resolution ([#452](https://github.com/isndotbiz/compound-engineering-plugin/issues/452)) ([638b38a](https://github.com/isndotbiz/compound-engineering-plugin/commit/638b38abd267d415ad2d6b72eba3dfe12beefad9))
+
 ## [2.60.0](https://github.com/EveryInc/compound-engineering-plugin/compare/cli-v2.59.0...cli-v2.60.0) (2026-03-31)
 
 
